@@ -1,7 +1,7 @@
 <!doctype html>
 
 <!-- ASSIGN OUR ANGULAR MODULE -->
-<html ng-app="etsyAPI">
+<html ng-app="scotchTodo">
 <head>
 	<!-- META -->
 	<meta charset="utf-8">
@@ -13,90 +13,62 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 	<style>
-		html 						{ overflow-y:scroll; }
-		body 						{ padding-top:50px; }
-		#todo-list 			{ margin-bottom:30px; }
-		.product {
-		  min-height: 200px;
-		  background-size: cover !important;
-		}
-		.panel-footer {
-		  min-height: 110px;
-		}
-		.panel {
-			-webkit-transition: .25s all;
-			-moz-transition: .25s all;
-			transition: .25s all;
-		}
-		.panel:hover, .panel:focus, .panel:active {
-		  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
-		  -webkit-box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
-		  border: 1px solid #eee;
-		  cursor: pointer;
-		}
+		html 					{ overflow-y:scroll; }
+		body 					{ padding-top:50px; }
+		#todo-list 				{ margin-bottom:30px; }
+		#todo-form 	 			{ margin-bottom:50px; }
 	</style>
 
 	<!-- SPELLS -->
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
 
 	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
-	<script src="js/services/products.js"></script> <!-- load our etsy api -->
+	<script src="js/services/todos.js"></script> <!-- load our todo service -->
 	<script src="js/core.js"></script> <!-- load our main application -->
 
 </head>
 <!-- SET THE CONTROLLER -->
-<body >
-	
-	<div class="container" ng-controller="mainController">
+<body ng-controller="mainController">
+	<div class="container">
 
 		<!-- HEADER AND TODO COUNT -->
 		<div class="jumbotron text-center">
-			<h1>Total Products <span class="label label-info">{{ products.count }}</span></h1>
-		</div>
-
-		<!-- FORM TO CREATE PRODUCTS -->
-		<div id="todo-form" class="row">
-			<div class="col-sm-6 col-sm-offset-3 text-center">
-				<form>
-					<div class="form-group">
-						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-						<input type="text" class="form-control input-lg text-center" placeholder="Search" ng-model="search">
-					</div>
-
-					<div class="form-group">
-						<div class="btn-group " role="group" aria-label="..." ng-model="orderProp">
-						  <button type="button" class="btn btn-default" value="product.title">Name</button>
-						  <button type="button" class="btn btn-default" value="product.price">Price</button>
-						  <button type="button" class="btn btn-default" value="product.last_modified_tsz">Date</button>
-						</div>
-					</div>
-
-					<!-- createToDo() WILL CREATE NEW PRODUCTS 
-					<button type="submit" class="btn btn-primary btn-lg" ng-click="">Update</button>-->
-				</form>
-			</div>
+			<h1>I'm a Todo-aholic <span class="label label-info">{{ todos.length }}</span></h1>
 		</div>
 
 		<!-- TODO LIST -->
 		<div id="todo-list" class="row">
-			<div class="col-sm-4 col-md-3" ng-repeat="product in products.results | filter:search | orderBy: orderProp ">
+			<div class="col-sm-4 col-sm-offset-4">
 
 				
 
-				<!-- LOOP OVER THE PRODUCTS IN $scope.products -->
-						<div class="panel" ng-click="selectProduct(product.listing_id)">
-							<div class="product panel-content" style="background: url({{ product.MainImage.url_570xN }}) no-repeat center center">
-							</div>
-							<div class="panel-footer">
-								<h5 class="title">{{ product.title }}</h5>
-								<span class="price">{{ product.price }}</span> | <span class="price">{{ product.last_modified_tsz * 1000 | date }}</span>
-							</div>
-						</div>
+				<!-- LOOP OVER THE TODOS IN $scope.todos -->
+				<div class="checkbox" ng-repeat="todo in todos">
+					<label>
+						<input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text }}
+					</label>
+				</div>
 
 				<p class="text-center" ng-show="loading">
 					<span class="fa fa-spinner fa-spin fa-3x"></span>
 				</p>
 
+			</div>
+		</div>
+
+		<!-- FORM TO CREATE TODOS -->
+		<div id="todo-form" class="row">
+			<div class="col-sm-8 col-sm-offset-2 text-center">
+				<form>
+					<div class="form-group">
+
+						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+						<input type="text" class="form-control input-lg text-center" placeholder="I want to buy a puppy that will love me forever" ng-model="formData.text">
+					</div>
+
+					<!-- createToDo() WILL CREATE NEW TODOS -->
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
+				</form>
 			</div>
 		</div>
 

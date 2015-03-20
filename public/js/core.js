@@ -1,2 +1,1 @@
-angular.module('etsyAPI', ['productController', 'productService']);
-//angular.module('etsyTest', ['etsyController', 'etsyService']);
+angular.module('scotchTodo', ['todoController', 'todoService']);
