@@ -29,4 +29,4 @@ Each branch represents a certain tutorial.
 
 Happy Todo-ing!
 
-![Todo-aholic](http://i.imgur.com/ikyqgrn.png)
+![Etsy API](http://i.imgur.com/zSePZ2T.png)
