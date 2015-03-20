@@ -1,5 +1,5 @@
 {
-  "name"         : "node-todo",
+  "name"         : "node-angular-etsy",
   "version"      : "0.0.0",
   "description"  : "Simple todo application.",
   "main"         : "server.js",
