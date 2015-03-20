@@ -1,6 +1,6 @@
-# Node Todo App
+# Node Angular Etsy App
 
-A Node app built with MongoDB and Angular. For demonstration purposes and a tutorial.
+A Node app built with MongoDB and Angular. Forked from the [Single Page Todo App with Node and Angular](http://scotch.io/tutorials/javascript/creating-a-single-page-todo-app-with-node-and-angular) from [scotch.io](http://scotch.io).
 
 Node provides the RESTful API. Angular provides the frontend and accesses the API. MongoDB stores like a hoarder.
 
